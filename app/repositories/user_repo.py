@@ -1,76 +1,51 @@
 from app.core.database import get_connection
 
-# Obtener usuario por email
 def get_user_by_email(email: str):
 
     conn = get_connection()
-
     cursor = conn.cursor(dictionary=True)
 
-    query = """
-        SELECT * FROM users
-        WHERE email = %s
-    """
+    query = "SELECT * FROM user WHERE email = %s"
 
     cursor.execute(query, (email,))
-
     user = cursor.fetchone()
 
     conn.close()
 
     return user
 
-# Crear usuario
-def create_user(email: str, password: str):
+
+def create_user(data: dict):
 
     conn = get_connection()
-
     cursor = conn.cursor()
 
     query = """
-        INSERT INTO users(email, password)
-        VALUES(%s, %s)
+        INSERT INTO user(
+            name,
+            email,
+            phone,
+            document_number,
+            document_type_id,
+            gender,
+            id_status,
+            password
+        )
+        VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
     """
 
-    cursor.execute(query, (email, password))
+    values = (
+        data["name"],
+        data["email"],
+        data["phone"],
+        data["document_number"],
+        data["document_type_id"],
+        data["gender"],
+        data["id_status"],
+        data["password"]
+    )
+
+    cursor.execute(query, values)
 
     conn.commit()
-
     conn.close()
-
-# Obtener todos los usuarios
-def get_all_users():
-
-    conn = get_connection()
-
-    cursor = conn.cursor(dictionary=True)
-
-    query = "SELECT * FROM users"
-
-    cursor.execute(query)
-
-    users = cursor.fetchall()
-
-    conn.close()
-
-    return users
-
-# Obtener usuario por ID
-def get_user_by_id(user_id: int):
-
-    conn = get_connection()
-
-    cursor = conn.cursor(dictionary=True)
-
-    query = """
-        SELECT * FROM users
-        WHERE id = %s
-    """
-
-    cursor.execute(query, (user_id,))
-
-    user = cursor.fetchone()
-
-    conn.close()
-
-    return user

@@ -1,16 +1,16 @@
 from pydantic import BaseModel, EmailStr
 
-# Crear usuario
 class UserCreate(BaseModel):
+    name: str
     email: EmailStr
+    phone: str
+    document_number: str
+    document_type_id: int
+    gender: str
+    id_status: int
     password: str
 
-# Respuesta usuario
-class UserResponse(BaseModel):
-    id: int
-    email: EmailStr
 
-# Login
 class UserLogin(BaseModel):
     email: EmailStr
     password: str

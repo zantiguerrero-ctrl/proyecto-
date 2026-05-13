@@ -1,6 +1,10 @@
 from fastapi import APIRouter, HTTPException
 
-from app.schemas.user import UserCreate
+from app.schemas.user import (
+    UserCreate,
+    UserLogin
+)
+
 from app.services.auth_service import (
     register_user,
     login_user
@@ -12,10 +16,7 @@ router = APIRouter()
 @router.post("/register")
 def register(user: UserCreate):
 
-    result = register_user(
-        user.email,
-        user.password
-    )
+    result = register_user(user)
 
     if not result:
         raise HTTPException(
@@ -29,7 +30,7 @@ def register(user: UserCreate):
 
 # Login
 @router.post("/login")
-def login(user: UserCreate):
+def login(user: UserLogin):
 
     token = login_user(
         user.email,

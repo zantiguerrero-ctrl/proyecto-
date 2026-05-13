@@ -9,24 +9,24 @@ from app.core.security import (
     create_access_token
 )
 
-# Register
-def register_user(email: str, password: str):
+def register_user(user_data):
 
-    existing_user = get_user_by_email(email)
+    existing_user = get_user_by_email(user_data.email)
 
     if existing_user:
         return None
 
-    hashed_password = hash_password(password)
+    user_dict = user_data.dict()
 
-    create_user(
-        email,
-        hashed_password
+    user_dict["password"] = hash_password(
+        user_dict["password"]
     )
+
+    create_user(user_dict)
 
     return True
 
-# Login
+
 def login_user(email: str, password: str):
 
     user = get_user_by_email(email)
