@@ -2,10 +2,20 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
-# Crisis alert
-@router.post("/")
-def crisis_alert():
+
+# Obtener líneas de ayuda
+@router.get("/lineas-de-ayuda")
+def obtener_lineas_ayuda():
 
     return {
-        "message": "Alerta de crisis enviada"
+        "message": "Lista de líneas de ayuda"
+    }
+
+
+# Historial de casos críticos
+@router.get("/historial-critico")
+def historial_critico():
+
+    return {
+        "message": "Historial de crisis críticas"
     }
