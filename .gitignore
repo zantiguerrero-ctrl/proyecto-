@@ -1,4 +1,22 @@
+<<<<<<< HEAD
 __pycache__/
 *.pyc
 venv/
 .env
+=======
+# Entorno virtual
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Variables de entorno
+.env
+
+# Logs
+*.log
+
+# Archivos de VS Code (opcional)
+.vscode/
+>>>>>>> 6fd0f3f (Implementación del módulo de administración)
